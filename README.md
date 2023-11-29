@@ -4,6 +4,7 @@
 
 The Digit Recognition project is a Python-based application that combines Pygame for drawing, Pillow for image processing, and TensorFlow for machine learning. It provides an interactive way to test digit recognition using a Convolutional Neural Network (CNN) model trained on the MNIST dataset.
 
+Below are snippets from the main code, followed by a brief explanation.
 ## Main Components
 
 ### 1. Drawing Interface - `drawer.py`
