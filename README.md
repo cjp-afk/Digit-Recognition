@@ -80,5 +80,3 @@ Defines and trains the CNN model for digit recognition.
 Lists all the necessary Python libraries for the project, including Pillow, Pygame, Matplotlib, and TensorFlow.
 
 ---
-
-This README provides an overview and in-depth explanation of the Digit Recognition project, focusing on its key components and the CNN model architecture. For further details and updates, refer to the project's [GitHub repository](https://github.com/ToeFr/Digit-Recognition).
