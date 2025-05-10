@@ -1,82 +1,87 @@
-# README for Digit Recognition Project
+# 🧠 Digit Recognition
 
-## Introduction
-
-The Digit Recognition project is a Python-based application that combines Pygame for drawing, Pillow for image processing, and TensorFlow for machine learning. It provides an interactive way to test digit recognition using a Convolutional Neural Network (CNN) model trained on the MNIST dataset.
-
-Below are snippets from the main code, followed by a brief explanation.
-## Main Components
-
-### 1. Drawing Interface - `drawer.py`
-This module manages the drawing interface where users can draw digits.
-- **Key Functionality**:
-  ```python
-  # Main game loop for drawing
-  running = True
-  while running:
-      for event in pygame.event.get():
-          if event.type == pygame.QUIT:
-              running = False
-          elif event.type == pygame.MOUSEBUTTONDOWN:
-              is_drawing = True
-          elif event.type == pygame.MOUSEBUTTONUP:
-              is_drawing = False
-          elif event.type == pygame.MOUSEMOTION and is_drawing:
-              mouse_pos = pygame.mouse.get_pos()
-              pygame.draw.circle(window, drawing_color, mouse_pos, 8)
-  ```
-
-### 2. Image Processing - `image_processing.py`
-Processes the saved image for digit recognition.
-- **Key Functionality**:
-  ```python
-  # Convert to grayscale and resize
-  img = Image.open(image_path).convert("L")
-  img = img.resize((28, 28), Image.LANCZOS)
-  img_array = np.array(img)
-  img_array = img_array.reshape((1, 28, 28, 1)).astype("float32") / 255
-  ```
-
-### 3. Main Application - `main.py`
-The entry point of the application.
-- **Key Functionality**:
-  ```python
-  if __name__ == "__main__":
-      choice = input("Train new model (1)\nUse existing model (2)\n-> ")
-      if choice == "1":
-          initialise_model()
-      elif choice == "2":
-          run_app()
-  ```
-
-### 4. CNN Model - `model_cnn.py`
-Defines and trains the CNN model for digit recognition.
-- **Model Architecture**:
-  ```python
-  model = keras.Sequential([
-      keras.layers.Conv2D(32, kernel_size=(3, 3), activation="relu", input_shape=(28, 28, 1)),
-      keras.layers.BatchNormalization(),
-      keras.layers.Conv2D(64, (3, 3), activation="relu"),
-      keras.layers.BatchNormalization(),
-      keras.layers.Conv2D(16, (3, 3), activation="relu"),
-      keras.layers.BatchNormalization(),
-      keras.layers.MaxPooling2D(pool_size=(2, 2)),
-      keras.layers.Dropout(0.35),
-      keras.layers.Flatten(),
-      keras.layers.Dense(128, activation="relu"),
-      keras.layers.Dropout(0.55),
-      keras.layers.Dense(10, activation="softmax"),
-  ])
-  ```
-- **Explanation of Layers**:
-  - **Conv2D Layers**: These layers perform convolution operations, capturing the spatial features from the image. The first layer has 32 filters, followed by 64 and then 16, each with a kernel size of 3x3. The 'relu' activation function introduces non-linearity, allowing the model to learn more complex patterns.
-  - **BatchNormalization**: This layer normalizes the activations from the previous layer, which helps in speeding up the training process and reducing the sensitivity to network initialization.
-  - **MaxPooling2D**: This layer reduces the spatial dimensions (height and width) of the input volume, which helps in reducing the number of parameters, computation in the network, and also controls overfitting.
-  - **Dropout**: Dropout layers randomly set a fraction of input units to 0 at each update during training, which helps in preventing overfitting. The dropout rates are 0.35 and 0.55 after the pooling and dense layers, respectively.
-  - **Flatten**: This layer flattens the input without affecting the batch size. It is used when transitioning from convolutional layers to dense layers.
-  - **Dense**: These are fully connected layers. The first dense layer has 128 neurons, and the final layer has 10 neurons (one for each digit) with a 'softmax' activation function, which is used for multi-class classification.
-
-### 5. Dependencies - `requirements.txt`
-Lists all the necessary Python libraries for the project, including Pillow, Pygame, Matplotlib, and TensorFlow.
+**An Interactive Handwritten Digit Classifier Built from Scratch**
 
 ---
+
+## 🎯 Project Overview
+
+This project is a Python-based application that combines Pygame for drawing, Pillow for image processing, and TensorFlow for machine learning. It provides an interactive way to test digit recognition using a Convolutional Neural Network (CNN) model trained on the MNIST dataset.([GitHub][1])
+
+---
+
+## 🧩 Core Components
+
+### 1. **Drawing Interface (`drawer.py`)**
+
+* **Functionality**: Provides a Pygame-based canvas for users to draw digits.
+* **Implementation**: Captures mouse events to render strokes, allowing users to input digits in real-time.([GitHub][1], [GitHub][2])
+
+### 2. **Image Processing (`image_processing.py`)**
+
+* **Functionality**: Processes the drawn image to match the MNIST dataset format.
+* **Implementation**:
+
+  * Resizes the image to 28x28 pixels.
+  * Converts the image to grayscale.
+  * Normalizes pixel values to prepare for model input.([Medium][3])
+
+### 3. **Model Architecture (`model_cnn.py`)**
+
+* **Functionality**: Defines the CNN model architecture for digit recognition.
+* **Implementation**:
+
+  * Utilizes TensorFlow to build a sequential model.
+  * Includes convolutional, pooling, and dense layers.
+  * Employs softmax activation in the output layer for multi-class classification.([GitHub][1])
+
+### 4. **Model Training and Storage (`mnist_model.h5`)**
+
+* **Functionality**: Stores the trained CNN model.
+* **Implementation**:
+
+  * Trained on the MNIST dataset to achieve high accuracy.
+  * Saved in HDF5 format for easy loading and deployment.([GitHub][4], [GitHub][5])
+
+### 5. **Main Application (`main.py`)**
+
+* **Functionality**: Integrates all components to run the application.
+* **Implementation**:
+
+  * Loads the trained model.
+  * Captures user input from the drawing interface.
+  * Processes the image and predicts the digit using the CNN model.
+  * Displays the prediction to the user.([GitHub][1])
+
+---
+
+## 🧠 Learning Objectives
+
+* **Integration of Multiple Libraries**: Combining Pygame, Pillow, and TensorFlow to create a cohesive application.
+* **Understanding CNNs**: Gaining hands-on experience with convolutional neural networks and their application in image recognition.
+* **Real-Time Processing**: Implementing real-time image processing and prediction to provide immediate feedback to users.
+* **User Interface Design**: Designing an intuitive interface for users to interact with the application seamlessly.([GitHub][1])
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/cjp-afk/Digit-Recognition.git
+   cd Digit-Recognition
+   ```
+
+2. **Install Dependencies**:
+   Ensure you have Python installed. Then, install the required packages:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the Application**:
+
+   ```bash
+   python main.py
+   ```
